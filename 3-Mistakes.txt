@@ -1,0 +1,76 @@
+// Discrding / Restoring files and its changes (non commited)
+
+1. To check for changes in a file
+git diff razor.txt
+
+2. To discard all changes in a file
+git restore razor.txt
+
+3. 2. To discard all changes
+git restore .
+
+4. To restore a deleted file
+git restore razor.txt
+
+5. To discard chunk of change in a file
+git restore -p razor.txt
+
+
+// Commited data
+
+1. To check commit history
+git log --oneline
+
+2. Fixing the last commit (message)
+git commit --amend -m "last commit fix"
+Note: "--amend" command re-writes history. So, don't use it for remote commits
+
+3. Reverting a commit in the middle
+git revert 12122d0
+
+4. Resetting to an old version (delete the commits afterwards)
+git reset --hard  12122d0
+git reset HEAD~2 --hard
+- In this we delete the commits but keep the changes in files
+git reset --mixed  12122d0
+
+5. Resetting a file to an old version
+git restore --source e9aa537 demon.txt
+
+Note: "git reflog" command gives complete history
+6. Recovering deleted commits/branches
+- Setting a branch till this commit(commit before deletion)
+git branch <new-branch> 12122d0
+
+7. Moving a commit to a NEW branch
+- Make a new branch with this branch. 
+- Delete the commit in previous branch.
+
+8. Moving a commit to a DIFFERENT branch
+- Cherry-pick this commit
+git cherry-pick cf550bc (moves commit to the HEAD branch)
+- Delete the commit in previous branch.
+git reset HEAD~1 --hard
+
+
+// Interactive Rebase
+
+git rebase -i HEAD~2
+1. Edit an old commit message (reword)
+2. To delete an old commit (drop)
+3. To merge two consecutive commits (squash)
+
+4. Adding a change to an OLD commit
+- In this case we add a fixup commit then, this fixup commit is applied to old commit 
+  which we want to change and fixed up commit get destroyed.
+
+- To make a fixup commit 
+git add .
+git commit --fixup 5feca52 (hash of the commit, which needed to be fixed)
+
+- Use interactive rebase (this will automatically squash the commits)
+git rebase -i 12122d0 --autosquash
+
+
+
+

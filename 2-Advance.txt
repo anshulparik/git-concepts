@@ -1,0 +1,75 @@
+1 - Interactive Rebase
+- It allows us to manipulate our commit history.
+
+- change commit's message
+- delete commits
+- reorder commmits
+- combine multiple commits into one
+- edit/split an existing commit into multiple new ones
+
+USECASE: 
+If we have done developing into our feature branch, then we can clean up the commit
+structure of the feature branch before merging it into team branch(develop).
+
+For editing in the code editor
+git config --global core.editor "code --wait"
+
+Steps :-
+1. Choose range of commits (choose base commit).
+
+Application :-
+1. Changing commit message
+- We can use commit id or we can count the number of commits from HEAD
+- Always choose one commit extra from the commit that we are going to edit.
+
+Eg: 
+Suppose, we want to change demon commit
+
+33c2939 (HEAD -> master) bug fixes -- HEAD
+4e0ce59 (origin/test-4, origin/master, test-4) demon  -- HEAD - 1
+b9f45bd Merge branch 'test-3' -- HEAD - 2
+
+// command
+git rebase -i HEAD~2
+
+Then use the tool on screen
+
+
+2 - Cherry Picking 
+- It allows us to pick specific commit from other branch
+
+Steps: 
+1. Switch to the branch on which we want that commit.
+2. git cherry-pick ca1f3ca
+
+
+3 - To delete the commit from the branch (local)
+git reset --hard HEAD~1
+git reset --hard ca1f3ca
+We can undo it with use of Reflog
+
+4 - Reflog
+- A protocol of HEAD pointer movement.
+- It gives all the logs of actions which we are doing
+- Main usecase of this is to undo the code by using commit hashes,
+  we can create new branches using the hashes just before mistake.
+git reflog
+
+5 - Submodules
+- It is standard git repo which is nested inside another(parent) repo.
+- If we want to setup version control for external library inside our project we can use it.
+git submodule add <repo-url>
+- When we clone project normally, submodule doesn't get cloned automatically.
+git submodule update --init --
+
+
+6 - Search & Find
+we can search & find commit from cmd line. Check it out
+1. Dates --before / --after
+2. commit msgs --grep
+3. author --author
+4. with filename -- <filename>
+5. by branch <branch-A>..<branch-B>
+==========================
+CI/CD pipeline
+squashing commits

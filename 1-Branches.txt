@@ -1,0 +1,118 @@
+1 - HEAD Branch -
+currently active/checked out branch.
+
+2 - To check status - 
+git status
+
+3 - Local/Remote Branches
+Local - On our PC (.git folder)
+Remote - On Github (repository)
+
+4 - To check logs and commit history
+git log
+git log --oneline
+
+
+5 - Creating a new branch
+git branch test-1
+  - To get a branch till the particular commit
+git branch test-1 6d9549c
+  - To create a new branch & checkout it
+git checkout -b test-1
+
+
+6 - To fetch the latest changes/commits from remote
+git fetch origin
+
+7 - To directly checkout the commit 
+git checkout 2d979f5
+
+8 - To switch branch
+git checkout test-2
+git switch test-2
+
+// For local branches
+9 - To rename branch (HEAD branch)
+git branch -m test-2
+  - for non checked out branch
+git branch -m test-1 test-2  
+
+10 - To see all branches
+git branch
+
+11 - To publish(upload) local branch to remote
+git push -u origin <local-branch>
+git push --set-upstream origin <local-branch>
+
+12 - Tracking branches (creating a new branch from remote branch)
+- To track remote branch from local branch(creating a new branch on local)
+git branch --track test-1 origin/test-1
+- To directly track & checkout (automatically creates a new branch on local)
+git checkout --track origin/test-1
+
+13 - To see tracking status
+git branch -v
+
+14 - To delete a local branch(can't delete the HEAD branch)
+git branch -d <local-branch>
+git branch -f <local-branch> (if some commits are present on the branch)
+
+15 - To delete the remote branch
+git push origin --delete <remote-branch>
+
+16 - Merging branches
+- Integrating changes from another branch into HEAD branch
+git switch master
+git merge test-2
+
+17 - Rebasing branches
+- Another way of integrating changes from another branch into HEAD branch
+Note: In rebase there is no seperate merge commit that gets created.
+git switch master
+git rebase test-2
+
+18 - Comparing branches
+- This show which commits are in test-4 but not in test-2
+git log test-2..test-4
+- Comparing local and remote branches
+git log origin/master..master
+
+19 - To check changes in file
+git diff index.html
+
+20 - To add a file in patch level(file patch) for commit
+(suppose if we don't want to commit the entire changes of file into a single commit)
+git add -p index.html 
+
+21 - Commit message should be concise and accurate. 
+
+22 - How to abort a merge conflict
+git merge --abort
+git rebase --abort
+
+RULE: 
+Do NOT use Rebase on commits that you've already pushed on remote repository.
+Instead, use it for cleaning up your local commit history before merging it into 
+a shared team branch.
+
+- It re-writes commit history.
+- It changes commit's, parent commit because of rebasing.
+- It creates a clean commit history.
+
+Commits - X, A, B, C
+
+Ex: 
+         __________ A                 -- Branch 1
+        /
+main  X
+        \_______B _______ C           -- Branch 2
+
+after rebasing 
+
+main   X ------- B -------- C --------- A
+
+Note: 
+Earlier A's parent commit was X,
+Now after rebasing it's parent commit is C
+
+Changing a commit's parent commit, effectively creates a new commit(commit hash gets changed).
